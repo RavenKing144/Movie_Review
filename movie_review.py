@@ -23,8 +23,8 @@ tokenizer = RegexpTokenizer(r'\w+')
 stopword = set(stopwords.words('english'))
 ps = PorterStemmer()
 
-df = pd.read_csv('./train.csv')
-df1 = pd.read_csv('./Test.csv')
+df = pd.read_csv('/content/drive/My Drive/Moview Review/Train/Train.csv')
+df1 = pd.read_csv('/content/drive/My Drive/Moview Review/Test/Test.csv')
 
 df = df.values
 df1 = df1.values
@@ -52,12 +52,12 @@ x = getStemmedDocument(x)
 xt = getStemmedDocument(xt)
 
 cv = CountVectorizer()
-x_vec = cv.fit_transform(x).toarray()
+x_vec = cv.fit_transform(x[:20000]).toarray()
 xt_vec = cv.transform(xt).toarray()
-"""### Using Multinomial Naive Bayers"""
+
 mnb = MultinomialNB()
 
-mnb.fit(x_vec,y)
+mnb.fit(x_vec,y[:20000])
 
 res = mnb.predict(xt_vec)
 
